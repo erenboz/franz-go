@@ -6,6 +6,7 @@ import (
 	"errors"
 	"hash/crc32"
 	"math/rand"
+	"runtime"
 	"strings"
 	"sync"
 	"sync/atomic"
@@ -17,6 +18,7 @@ import (
 )
 
 func TestClient_Produce(t *testing.T) {
+	runtime.GOMAXPROCS(100)
 	var (
 		topic, cleanup = tmpTopicPartitions(t, 1)
 		numWorkers     = 50
